@@ -1,0 +1,9 @@
+body {
+    background-color: rgb(134, 132, 132);
+    color: white; 
+  }
+  
+  .btn-yellow {
+    background-color: yellow;
+    color: black;
+  }
