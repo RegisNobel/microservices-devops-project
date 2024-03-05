@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -17,6 +19,19 @@
             </ul>
         </div>
     </nav>
+    <div class="container mt-5">
+        {% if email_snt == 1 %}
+        <div class="alert alert-success" role="alert">
+            Email sent successfully
+        </div>
+        {% endif %}
+
+        {% if email_snt == 2 %}
+        <div class="alert alert-danger" role="alert">
+            Send email failed
+        </div>
+        {% endif %}
+    </div>
 
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -34,6 +49,11 @@
                         <tr>
                             <td>{{ user.name }}</td>
                             <td>{{ user.email }}</td>
+                            <td><form action="/sendemail" method="post">
+                                <input type="hidden" name="email" value="{{ user.email }}">
+                                <button type="submit" class="btn btn-primary">Send Email
+                                </button>
+                            </form></td>
                         </tr>
                         {% endfor %}
                     </tbody>
