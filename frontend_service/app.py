@@ -19,14 +19,30 @@ def submit():
         return "Error in email storage", 400
     
 @app.route('/admin')
-def admin():
+def admin(email_sent=0):
     response = requests.get('http://localhost:5001/admin')
     if response.status_code == 200:
-        return render_template('admin.html', email_list = response.json())
+        return render_template('admin.html', email_list = response.json(), email_snt=email_sent)
     elif response.status_code == 404:
-        return render_template('admin.html')
+        return render_template('admin.html', email_snt=email_sent)
     else:
         return "Error in fetching emails", 400
+    
+@app.route('/sendemail', methods=['POST'])
+def send_email():
+    data = request.form
+    to = data['email']
+    subject = "Test Email"
+    body = "This is a test email"
+
+    try:
+        response = requests.post('http://localhost:5002/sendemail', json={'to': to, 'subject': subject, 'body': body})
+        if response.status_code == 200:
+            return admin(email_sent=1)
+        else:
+            return admin(email_sent=2)
+    except Exception as e:
+        return admin(email_sent=2)
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
