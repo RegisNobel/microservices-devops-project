@@ -11,3 +11,14 @@ End to end microservices devops project
     - develop the email sender service on new branch
     - tested the email sender service
     - pushed changes to github
+
+3/5/2024
+    - merged the email sender service to the main branch
+    - started script to run all services
+
+
+3/11/2024
+    - finished the shell script to run/stop all services
+    - added a Makefile to do various tasks
+    - tested the script/makefile
+    - pushed changes to github
