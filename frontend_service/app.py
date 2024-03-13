@@ -28,6 +28,19 @@ def admin(email_sent=0):
     else:
         return "Error in fetching emails", 400
     
+@app.route('/update', methods=['GET','POST'])
+def update():
+    data = request.form
+    id = data['id']
+    new_name = data['new_name']
+    new_email = data['new_email']
+
+    response = requests.post('http://localhost:5001/update', json={'id': id, 'new_name': new_name, 'new_email': new_email})
+    if response.status_code == 200:
+        return redirect('/admin')
+    else:
+        return "Error in updating data", 400
+    
 @app.route('/sendemail', methods=['POST'])
 def send_email():
     data = request.form

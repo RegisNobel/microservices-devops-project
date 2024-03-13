@@ -11,7 +11,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     
     def serialize(self):
-        return {'name': self.name, 'email': self.email}
+        return {'id': self.id, 'name': self.name, 'email': self.email}
 
 with app.app_context():
     db.create_all()
@@ -25,6 +25,20 @@ def store_email():
     db.session.add(new_user)
     db.session.commit()
     return "Email stored successfully", 200
+
+@app.route('/update', methods=['POST'])
+def update_email():
+    id = request.json['id']
+    new_name = request.json['new_name']
+    new_email = request.json['new_email']
+    user = User.query.filter_by(id=id).first()
+    user.id = id
+    user.name = new_name
+    user.email = new_email
+    
+    db.session.commit()
+    return "Email updated successfully", 200
+
 
 @app.route('/admin', methods=['GET'])
 def get_list():
