@@ -41,6 +41,17 @@ def update():
     else:
         return "Error in updating data", 400
     
+@app.route('/delete', methods=['POST'])
+def delete():
+    data = request.form
+    id = data['id']
+
+    response = requests.post('http://localhost:5001/delete', json={'id': id})
+    if response.status_code == 200:
+        return redirect('/admin')
+    else:
+        return "Error in deleting data", 400
+    
 @app.route('/sendemail', methods=['POST'])
 def send_email():
     data = request.form

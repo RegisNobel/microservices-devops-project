@@ -45,6 +45,7 @@
                             <th>Email</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,12 +61,18 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <button onclick="makeEditable(this)" class="btn btn-primary">Edit</button>
+                                    <button onclick="makeEditable(this)" class="btn btn-warning">Edit</button>
                                     <form action="/update" method="post" style="display:none;">
                                         <input type="hidden" name="id" value="{{ user.id }}">
                                         <input type="hidden" name="new_name" value="{{ user.name }}">
                                         <input type="hidden" name="new_email" value="{{ user.email }}">
                                         <button type="submit" class="btn btn-success">Update</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="/delete" method="post">
+                                        <input type="hidden" name="id" value="{{ user.id }}">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
                             </tr>

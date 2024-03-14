@@ -25,4 +25,7 @@ End to end microservices devops project
 3/13/2024
     - added update button to admin page
     - tested the update button
+    - removed hardcoded values from code (used environment variables)
+    - added delete button to admin page
+    - tested the delete button
     - pushed changes to github

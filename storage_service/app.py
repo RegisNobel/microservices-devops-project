@@ -45,6 +45,14 @@ def update_email():
     db.session.commit()
     return "Email updated successfully", 200
 
+@app.route('/delete', methods=['POST'])
+def delete_email():
+    id = request.json['id']
+    user = User.query.filter_by(id=id).first()
+    db.session.delete(user)
+    db.session.commit()
+    return "Email deleted successfully", 200
+
 
 @app.route('/admin', methods=['GET'])
 def get_list():
