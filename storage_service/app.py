@@ -1,8 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
+
+
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://appuser:password@localhost/email_list'
+load_dotenv('.env')
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URI') # used environment variable for database uri
 db = SQLAlchemy(app)
 
 class User(db.Model):
