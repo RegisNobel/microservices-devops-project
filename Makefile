@@ -26,13 +26,12 @@ clean:
 	rm -rf *.pyc __pycache__ .pytest_cache
 
 test:
-	pytest tests/
+	pytest
 
 lint:
-	flake8 .
+	cd frontend_service && black .
+	cd storage_service && black .
+	cd auto_mail_service && black .
 
-docs:
-	pdoc --html --output-dir docs --force frontend_service storage_service auto_mail_service
-
-# Other
-
+#docs:
+#	pdoc --html --output-dir docs --force frontend_service storage_service auto_mail_service

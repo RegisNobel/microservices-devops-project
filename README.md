@@ -29,3 +29,10 @@ End to end microservices devops project
     - added delete button to admin page
     - tested the delete button
     - pushed changes to github
+
+3/21/2024
+    - added __init__.py to all services to enable importing
+    - added unit tests for the frontend endpoints
+    - tested using pytest
+    - added linting to all py files using make and black
+    - pushed changes to github
