@@ -14,7 +14,7 @@ def submit():
     name = request.form["name"]
     email = request.form["email"]
     response = requests.post(
-        "http://localhost:5001/store-email", json={"name": name, "email": email}
+        "http://storage_service:5001/store-email", json={"name": name, "email": email}
     )
     if response.status_code == 200:
         return redirect("/")
@@ -24,7 +24,7 @@ def submit():
 
 @app.route("/admin")
 def admin(email_sent=0):
-    response = requests.get("http://localhost:5001/admin")
+    response = requests.get("http://storage_service:5001/admin")
     if response.status_code == 200:
         return render_template(
             "admin.html", email_list=response.json(), email_snt=email_sent
@@ -43,7 +43,7 @@ def update():
     new_email = data["new_email"]
 
     response = requests.post(
-        "http://localhost:5001/update",
+        "http://storage_service:5001/update",
         json={"id": id, "new_name": new_name, "new_email": new_email},
     )
     if response.status_code == 200:
@@ -57,7 +57,7 @@ def delete():
     data = request.form
     id = data["id"]
 
-    response = requests.post("http://localhost:5001/delete", json={"id": id})
+    response = requests.post("http://storage_service:5001/delete", json={"id": id})
     if response.status_code == 200:
         return redirect("/admin")
     else:
@@ -73,7 +73,7 @@ def send_email():
 
     try:
         response = requests.post(
-            "http://localhost:5002/sendemail",
+            "http://auto_mail_service:5002/sendemail",
             json={"to": to, "subject": subject, "body": body},
         )
         if response.status_code == 200:
@@ -85,4 +85,4 @@ def send_email():
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

@@ -36,3 +36,13 @@ End to end microservices devops project
     - tested using pytest
     - added linting to all py files using make and black
     - pushed changes to github
+
+3/26/2024
+    - wrote docker files for each service
+    - added a docker compose file to run all services + mysqldb service
+    - removed unused packages from all requirements.txt files
+    - Docker compose worked but services were not able to connect to each other
+    - py files needed to be updated with service names instead of localhost for docker compose to work
+    - App successfully ran with docker compose
+
+    - pushed changes to github

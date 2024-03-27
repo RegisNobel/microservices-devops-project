@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  frontend_service:
+    build: ./frontend_service
+    ports:
+      - "5000:5000"
+
+  storage_service:
+    build: ./storage_service
+    environment:
+      DB_URI: "mysql+pymysql://${DB_USER}:${DB_PASSWORD}@db/${DB_NAME}"
+    depends_on:
+      - db
+    ports:
+      - "5001:5001"
+
+  auto_mail_service:
+    build: ./auto_mail_service
+    ports:
+      - "5002:5002"
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
