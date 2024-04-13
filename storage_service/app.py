@@ -9,7 +9,7 @@ load_dotenv(".env")
 
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
     "DB_URI"
-)  # used environment variable for database uri
+)
 db = SQLAlchemy(app)
 
 

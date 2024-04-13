@@ -63,7 +63,7 @@ def delete():
     else:
         return "Error in deleting data", 400
 
-
+#send email route
 @app.route("/sendemail", methods=["POST"])
 def send_email():
     data = request.form
