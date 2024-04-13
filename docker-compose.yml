@@ -16,6 +16,9 @@ services:
 
   auto_mail_service:
     build: ./auto_mail_service
+    environment:
+      EMAIL_SENDER: ${EMAIL_SENDER}
+      EMAIL_SERVER_PASS: ${EMAIL_SERVER_PASS}
     ports:
       - "5002:5002"
 

@@ -1,0 +1,28 @@
+name: build email microservice
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+        - auto_mail_service/*
+
+jobs:
+
+    Docker:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+
+        - name: Set up Docker
+          uses: docker-practice/actions-setup-docker@master
+
+        - name: Login to Docker Hub
+          run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+        - name: Create email service image
+          run: |
+            docker build -t regisnobel/auto_mail_service:$(git rev-parse --short HEAD) -f auto_mail_service/Dockerfile .
+            docker push regisnobel/auto_mail_service:$(git rev-parse --short HEAD)

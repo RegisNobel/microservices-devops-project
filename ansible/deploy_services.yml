@@ -1,0 +1,79 @@
+---
+- name: Deploy services using Docker containers
+  hosts: all
+  become: yes
+
+  vars:
+    services:
+      - name: frontend_service
+        image: "RegisNobel/frontend_service:latest"
+        ports: "5000:5000"
+        additional_options: "--restart always"
+
+      - name: storage_service
+        image: "RegisNobel/storage_service:latest"
+        ports: "5001:5001"
+        env:
+          DB_URI: "mysql+pymysql://${DB_USER}:${DB_PASSWORD}@db/${DB_NAME}"
+        depends_on:
+          - db
+        additional_options: "--restart always"
+
+      - name: auto_mail_service
+        image: "RegisNobel/auto_mail_service:latest"
+        ports: "5002:5002"
+        env:
+          EMAIL_SENDER: "${EMAIL_SENDER}"
+          EMAIL_SERVER_PASS: "${EMAIL_SERVER_PASS}"
+        additional_options: "--restart always"
+
+    db_service:
+      name: db
+      image: "mysql:5.7"
+      ports: "3306:3306"
+      volumes: "/var/lib/mysql"
+      env:
+        MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+        MYSQL_DATABASE: "${DB_NAME}"
+        MYSQL_USER: "${DB_USER}"
+        MYSQL_PASSWORD: "${DB_PASSWORD}"
+      additional_options: "--restart always"
+
+  tasks:
+    - name: Login to Docker Hub
+      docker_login:
+        username: "{{ docker_username }}"
+        password: "{{ docker_password }}"
+
+    - name: Pull and run database service
+      docker_container:
+        name: "{{ db_service.name }}"
+        image: "{{ db_service.image }}"
+        ports:
+        - "{{ db_service.ports }}"
+        env: "{{ db_service.env }}"
+        volumes:
+        - "{{ db_service.volumes }}"
+        state: started
+        recreate: true
+        pull: true
+        command: ""
+        additional_options: "{{ db_service.additional_options }}"
+
+    - name: Pull and run application services
+      docker_container:
+        name: "{{ item.name }}"
+        image: "{{ item.image }}"
+        ports:
+        - "{{ item.ports }}"
+        env: "{{ item.env }}"
+        state: started
+        recreate: true
+        pull: true
+        command: ""  # Add any startup command if needed
+        additional_options: "{{ item.additional_options }}"
+        depends_on: "{{ item.depends_on | default(omit) }}"
+      loop: "{{ services }}"
+      async: 30
+      poll: 0
+

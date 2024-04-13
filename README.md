@@ -44,5 +44,10 @@ End to end microservices devops project
     - Docker compose worked but services were not able to connect to each other
     - py files needed to be updated with service names instead of localhost for docker compose to work
     - App successfully ran with docker compose
+    - pushed changes to github
 
+4/13/2024
+    - wrote github actions workflows to implement CI for all services and infrastructure
+    - added secrets to GitHub
+    - tested workflows
     - pushed changes to github

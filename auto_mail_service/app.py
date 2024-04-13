@@ -31,7 +31,7 @@ def send_email():
         server.starttls()
         server.login(
             sender, os.getenv("EMAIL_SERVER_PASS")
-        )  # used environment variable for password
+        )
         server.sendmail(sender, recipient, msg.as_string())
         server.quit()
         return jsonify({"message": "Email sent successfully"}), 200
