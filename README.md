@@ -51,3 +51,8 @@ End to end microservices devops project
     - added secrets to GitHub
     - tested workflows
     - pushed changes to github
+
+4/17/2024
+ - wrote terraform files to build AWS infrastructure
+ - tested terraform files
+ - pushed terraform files to github
