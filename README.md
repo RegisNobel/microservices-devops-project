@@ -1,8 +1,10 @@
-Microservices CI/CD Project
+Microservices CI/CD Project:
+
     This project demonstrates an end-to-end implementation of a microservices architecture with a robust CI/CD pipeline. It includes frontend and backend services, an email sender service, and utilizes various DevOps practices and tools.
     Key Features
 
-Multiple microservices including frontend, backend, and email sender
+Multiple microservices including frontend, backend, and email sender:
+
     Docker containerization for all services
     CI/CD pipeline using GitHub Actions
     Infrastructure as Code (IaC) with Terraform for AWS deployment
@@ -10,7 +12,7 @@ Multiple microservices including frontend, backend, and email sender
     Code linting with Black
     Makefile for various development tasks
 
-Project Timeline
+Project Timeline:
 
     3/1/2024: Initial development of basic app (frontend and backend services)
     3/4/2024: Added email sender service
@@ -22,8 +24,10 @@ Project Timeline
     4/13/2024: Set up GitHub Actions workflows for CI
     4/17/2024: Implemented Terraform for AWS infrastructure
 
-Getting Started
+Getting Started:
+
     Coming soon
 
-Contributing
+Contributing:
+
     Contributions are welcome
